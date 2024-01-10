@@ -1,0 +1,37 @@
+### Variebles
+@apiurl = http://localhost:3000
+
+### List courses
+GET {{apiurl}}/courses HTTP/1.1
+
+### Find One course
+GET {{apiurl}}/courses/2 HTTP/1.1
+
+### Create courses
+POST {{apiurl}}/courses HTTP/1.1
+content-type: application/json
+
+{
+  "id": 1,
+  "name": "Fundamentos do Framework NestJS",
+  "description": "Curso sobre fundamentos do Framework NestJS"
+}
+
+
+### Update courses 
+PATCH  {{apiurl}}/courses/2 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Node.js",
+  "description": "Curso sobre fundamentos do Framework NestJS"
+}
+
+### Delete 
+DELETE  {{apiurl}}/courses/1 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Fundamentos do Framework NestJS",
+  "description": "Curso sobre fundamentos do Framework NestJS"
+}
