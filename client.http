@@ -12,9 +12,10 @@ POST {{apiurl}}/courses HTTP/1.1
 content-type: application/json
 
 {
-  "id": 2,
+  "id": 4,
   "name": "Fundamentos do Framework NestJS",
-  "description": "Curso sobre fundamentos do Framework NestJS"
+  "description": "Curso sobre fundamentos do Framework NestJS",
+  "tags": "[node.js, 'nestjs', 'javascript', 'typescript']"
 }
 
 
