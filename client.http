@@ -12,19 +12,21 @@ POST {{apiurl}}/courses HTTP/1.1
 content-type: application/json
 
 {
-  "id": 1,
+  "id": 2,
   "name": "Fundamentos do Framework NestJS",
-  "description": "Curso sobre fundamentos do Framework NestJS"
+  "description": "Curso sobre fundamentos do Framework NestJS",
+  "tags": "[node.js, 'nestjs', 'javascript', 'typescript']",
+  "fakes": true
 }
 
 
 ### Update courses 
-PATCH  {{apiurl}}/courses/2 HTTP/1.1
+PUT  {{apiurl}}/courses/2 HTTP/1.1
 content-type: application/json
 
 {
   "name": "Node.js",
-  "description": "Curso sobre fundamentos do Framework NestJS"
+  "description": "Curso fundamentos do Node.js"
 }
 
 ### Delete 
