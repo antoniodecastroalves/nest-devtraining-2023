@@ -8,10 +8,10 @@ import {
   Param,
   Post,
   Put,
-} from '@nestjs/common';
-import { CoursesService } from './courses.service';
-import { CreateCourseDTO } from './dto/create-course.dto';
-import { UpdateCourseDTO } from './dto/update-course.dto';
+} from '@nestjs/common'
+import { CoursesService } from './courses.service'
+import { CreateCourseDTO } from './dto/create-course.dto'
+import { UpdateCourseDTO } from './dto/update-course.dto'
 
 @Controller('courses')
 export class CoursesController {
@@ -19,27 +19,27 @@ export class CoursesController {
 
   @Get()
   findAll() {
-    return this.coursesService.findAll();
+    return this.coursesService.findAll()
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(id);
+    return this.coursesService.findOne(id)
   }
 
   @Post()
   create(@Body() createCourseDTO: CreateCourseDTO) {
-    return this.coursesService.create(createCourseDTO);
+    return this.coursesService.create(createCourseDTO)
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateCourseDTO: UpdateCourseDTO) {
-    return this.coursesService.update(id, updateCourseDTO);
+    return this.coursesService.update(id, updateCourseDTO)
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.coursesService.remove(id);
+    return this.coursesService.remove(id)
   }
 }

@@ -1,17 +1,25 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Tag } from "./tags.entity";
-import { randomUUID } from "node:crypto";
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
+import { Tag } from './tags.entity'
+import { randomUUID } from 'node:crypto'
 
 @Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  description: string;
+  description: string
 
   @JoinTable()
   @ManyToMany(() => Tag, tag => tag.courses, {
@@ -20,7 +28,7 @@ export class Course {
   tags: Tag[]
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  created_at: Date
 
   @BeforeInsert()
   generatedId() {

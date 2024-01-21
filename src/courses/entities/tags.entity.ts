@@ -1,11 +1,18 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Course } from './courses.entity'
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from 'node:crypto'
 
 @Entity('tags')
 export class Tag {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
   name: string
@@ -14,7 +21,7 @@ export class Tag {
   courses: Course[]
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  created_at: Date
 
   @BeforeInsert()
   generatedId() {
