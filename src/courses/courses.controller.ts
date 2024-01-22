@@ -15,31 +15,31 @@ import { UpdateCourseDTO } from './dto/update-course.dto'
 
 @Controller('courses')
 export class CoursesController {
-  constructor(protected readonly coursesService: CoursesService) {}
+  constructor(private readonly courseService: CoursesService) {}
 
   @Get()
   findAll() {
-    return this.coursesService.findAll()
+    return this.courseService.findAll()
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(id)
+    return this.courseService.findOne(id)
   }
 
   @Post()
   create(@Body() createCourseDTO: CreateCourseDTO) {
-    return this.coursesService.create(createCourseDTO)
+    return this.courseService.create(createCourseDTO)
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateCourseDTO: UpdateCourseDTO) {
-    return this.coursesService.update(id, updateCourseDTO)
+    return this.courseService.update(id, updateCourseDTO)
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.coursesService.remove(id)
+    return this.courseService.remove(id)
   }
 }
