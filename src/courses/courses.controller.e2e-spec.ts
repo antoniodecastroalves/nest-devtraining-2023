@@ -1,13 +1,12 @@
-import { dataSource } from './../database/orm-cli-config';
 import 'dotenv/config'
 import { Test, TestingModule } from '@nestjs/testing'
-import { CoursesController } from './courses.controller'
-import { INestApplication, Module } from '@nestjs/common'
+import { INestApplication } from '@nestjs/common'
 import { Course } from './entities/courses.entity'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { Tag } from './entities/tags.entity'
 import { CoursesModule } from './courses.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import request from 'supertest'
 
 describe('CoursesController e2e tests', () => {
   let app: INestApplication
@@ -15,7 +14,7 @@ describe('CoursesController e2e tests', () => {
   let data: any
   let courses: Course[]
 
-  const dataSourcTest: DataSourceOptions = {
+  const dataSourceTest: DataSourceOptions = {
     type: 'postgres',
     host: process.env.DB_HOST,
     port: 5433,
@@ -32,7 +31,7 @@ describe('CoursesController e2e tests', () => {
         CoursesModule,
         TypeOrmModule.forRootAsync({
           useFactory: async () => {
-            return dataSourcTest
+            return dataSourceTest
           },
         }),
       ],
@@ -42,19 +41,34 @@ describe('CoursesController e2e tests', () => {
 
     data = {
       name: 'Node.js',
-      describe: 'Node.js',
+      description: 'Node.js',
       tags: ['nodejs', 'nestjs'],
     }
   })
 
   beforeEach(async () => {
-    const dataSource = await new DataSource(dataSourcTest).initialize()
+    const dataSource = await new DataSource(dataSourceTest).initialize()
     const repository = dataSource.getRepository(Course)
     courses = await repository.find()
     await dataSource.destroy()
-  }
+  })
 
-  // it('should be defined', () => {
-  //   expect(controller).toBeDefined()
-  // })
+  afterAll(async () => {
+    await module.close()
+  })
+
+  describe('POST /courses', () => {
+    it('should create a course', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/courses')
+        .send(data)
+        .expect(201)
+      expect(res.body.id).toBeDefined()
+      expect(res.body.name).toEqual(data.name)
+      expect(res.body.description).toEqual(data.description)
+      expect(res.body.created_at).toBeDefined()
+      expect(res.body.tags[0].name).toEqual(data.tags[0])
+      expect(res.body.tags[1].name).toEqual(data.tags[1])
+    })
+  })
 })
